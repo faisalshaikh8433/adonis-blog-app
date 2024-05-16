@@ -8,6 +8,7 @@ Post has integrated rich text editor, link scraper, code embedding, etc.
 - [AdonisJS](https://adonisjs.com/): A Node.js framework for building web applications.
 - [InertiaJS](https://inertiajs.com/): A client-side server-rendered framework for Vue.js, React, and Svelte.
 - [Vue.js](https://vuejs.org/): A progressive JavaScript framework for building user interfaces.
+- [Tailwind CSS](https://tailwindcss.com/): A progressive JavaScript framework for building user interfaces.
 
 ## Prerequisites
 
