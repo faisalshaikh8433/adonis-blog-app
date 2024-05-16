@@ -36,8 +36,12 @@ export default class PostsController {
    * Handle form submission for the create action
    */
   async store({ request, response, params, logger }: HttpContext) {
-    const payload = await request.validateUsing(createPostValidator)
     const blogId = params.blog_id
+    const payload = await request.validateUsing(createPostValidator, {
+      meta: {
+        blogId,
+      },
+    })
     const post = await Post.create({ ...payload, blog_id: blogId })
 
     return response.status(201).send({ post })
@@ -74,6 +78,7 @@ export default class PostsController {
     const payload = await request.validateUsing(updatePostValidator, {
       meta: {
         postId: params.id,
+        blogId: params.blog_id,
       },
     })
     const post = await Post.findOrFail(params.id)

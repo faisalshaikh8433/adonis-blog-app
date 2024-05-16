@@ -43,7 +43,7 @@
                   {{ detail.description }}
                 </div>
               </div>
-              <div class="url-image flex justify-center">
+              <div class="url-image flex justify-center" v-if="detail.image">
                 <img :src="detail.image" alt="URL Preview" class="max-w-40 h-auto" />
               </div>
             </div>

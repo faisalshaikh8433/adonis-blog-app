@@ -3,7 +3,7 @@
     v-if="showModal"
     class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75"
   >
-    <div class="bg-white rounded-lg max-h-screen overflow-y-scroll max-w-xl w-full">
+    <div class="bg-white rounded-lg max-w-xl w-full">
       <div class="px-4 py-2">
         <slot name="header">
           <div class="flex justify-between items-center">
@@ -11,7 +11,7 @@
             <button @click="closeModal" class="text-gray-600 hover:text-gray-800">&times;</button>
           </div>
         </slot>
-        <div class="p-4">
+        <div class="p-4 overflow-y-auto max-h-[500px]">
           <slot name="body">
             <p>This is the default body content.</p>
           </slot>

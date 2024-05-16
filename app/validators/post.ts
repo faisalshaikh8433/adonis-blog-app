@@ -9,7 +9,11 @@ export const createPostValidator = vine.compile(
       .string()
       .trim()
       .unique(async (db, value, field) => {
-        const post = await db.from('posts').where('title', value).first()
+        const post = await db
+          .from('posts')
+          .where('blog_id', field.meta.blogId)
+          .where('title', value)
+          .first()
         return !post
       }),
     description: vine.string().trim(),
@@ -27,8 +31,9 @@ export const updatePostValidator = vine.compile(
       .unique(async (db, value, field) => {
         const post = await db
           .from('posts')
-          .whereNot('id', field.meta.postId)
           .where('title', value)
+          .where('blog_id', field.meta.blogId)
+          .whereNot('id', field.meta.postId)
           .first()
         return !post
       }),

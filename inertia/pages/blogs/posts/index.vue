@@ -70,7 +70,7 @@
           type="text"
           id="title"
           v-model="formData.title"
-          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm h-8 p-2"
         />
       </div>
       <div class="mb-4">
@@ -100,7 +100,7 @@
               <div class="url-site text-gray-600">{{ detail.siteName }}</div>
               <div class="url-description">{{ detail.description }}</div>
             </div>
-            <div class="url-image flex justify-center">
+            <div class="url-image flex justify-center" v-if="detail.image">
               <img :src="detail.image" alt="URL Preview" class="max-w-40 h-auto" />
             </div>
           </div>
@@ -204,17 +204,11 @@ const deletePost = async (post) => {
 
 const handleSubmit = async () => {
   data.errorMessage = ''
-  const form = new FormData()
-  form.append('title', formData.value.title)
-  form.append('description', tinymce.activeEditor.getContent())
+  formData.value.description = tinymce.activeEditor.getContent()
   if (mode.value === 'edit') {
     // Handle update logic
     await axios
-      .put(`/blogs/${props.blogId}/posts/${formData.value.id}`, form, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      .put(`/blogs/${props.blogId}/posts/${formData.value.id}`, formData.value)
       .then((response) => {
         router.reload({ only: ['posts'] })
         resetForm()
@@ -229,7 +223,7 @@ const handleSubmit = async () => {
   } else {
     // Handle create logic
     await axios
-      .post(`/blogs/${props.blogId}/posts`, form)
+      .post(`/blogs/${props.blogId}/posts`, formData.value)
       .then((response) => {
         router.reload({ only: ['posts'] })
         data.loading = false
@@ -286,12 +280,7 @@ function extractUrlsFromStringWithHtml(input) {
   return Array.from(extractedUrls)
 }
 
-// const allLinks = computed(() => {
-//   return allLinkMetaDetails.value.map((meta) => meta.url)
-// })
 const initTinyMce = () => {
-  console.log(descriptionRef.value)
-  console.log(tinymce)
   try {
     tinymce.init({
       selector: '#description',
@@ -306,27 +295,6 @@ const initTinyMce = () => {
         })
         editor.on('change', async (e) => {
           setMetaLinkDetails(editor)
-          // // const newMetaDetails = []
-          // console.log(editor.getContent())
-          // const urls = extractUrlsFromStringWithHtml(editor.getContent())
-          // console.log(urls)
-          // // data.externalLinks = result
-          // const newMetaDetails = urls.map(async (url) => {
-          //   let metaDetails = allLinkMetaDetails.value.find((detail) => detail.url === url)
-          //   console.log(metaDetails)
-          //   if (metaDetails) {
-          //     // newMetaDetails.push(metaDetails)
-          //     return metaDetails
-          //   }
-          //   let metaDetail = await fetchAndDisplayMetadata(url)
-          //   console.log(metaDetail, 'metaDetail')
-          //   return metaDetail
-          //   // newMetaDetails.push(metaDetail)
-          // })
-          // console.log(newMetaDetails, 'array')
-          // allLinkMetaDetails.value = newMetaDetails
-          // console.log('The TinyMCE rich text editor content has changed.')
-          // console.log('The TinyMCE rich text editor content has changed.')
         })
       },
     })
@@ -357,13 +325,3 @@ const setMetaLinkDetails = async (editor) => {
   allLinkMetaDetails.value = newMetaDetails
 }
 </script>
-<style scoped>
-.preview-container {
-  margin-top: 20px;
-}
-
-.preview-container img {
-  max-width: 100%;
-  height: auto;
-}
-</style>

@@ -79,7 +79,7 @@
           type="text"
           id="title"
           v-model="formData.name"
-          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm h-8 p-2"
         />
       </div>
       <div class="mb-4">
