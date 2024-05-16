@@ -1,6 +1,7 @@
 # Blog App
 
-This is a simple blog app where users can create blogs and posts related to the blogs.
+This is a simple blog app where users can create blogs and posts related to the blogs. 
+Post has integrated rich text editor, link scraper, code embedding, etc.
 
 ## Technologies Used
 
