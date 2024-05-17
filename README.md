@@ -1,7 +1,7 @@
 # Blog App
 
 This is a simple blog app where users can create blogs and posts related to the blogs. 
-Post has integrated rich text editor, link scraper, code embedding, etc.
+User can create post using integrated rich text editor with custom link scraper.
 [Short demo link](https://drive.google.com/file/d/110CC1VeeraOApL42rrpGhCx4dPTWyb-p/view?usp=drive_link): On the first tab blog app is loaded and on the second tab live blog site is loaded.
 
 ## Technologies Used
