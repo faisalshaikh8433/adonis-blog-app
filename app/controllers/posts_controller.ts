@@ -1,17 +1,14 @@
-import Blog from '#models/blog'
 import Post from '#models/post'
 import { createPostValidator, updatePostValidator } from '#validators/post'
 import type { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
 import { cuid } from '@adonisjs/core/helpers'
-import fs from 'fs'
-import { request } from 'http'
 
 export default class PostsController {
   /**
    * Display a list of resource
    */
-  async index({ inertia, params, logger, request, response }: HttpContext) {
+  async index({ inertia, params, request, response }: HttpContext) {
     const blogId = params.blog_id
     const headers = request.headers()
     const posts = await Post.query().where('blog_id', blogId).orderBy('id', 'desc')
@@ -35,7 +32,7 @@ export default class PostsController {
   /**
    * Handle form submission for the create action
    */
-  async store({ request, response, params, logger }: HttpContext) {
+  async store({ request, response, params }: HttpContext) {
     const blogId = params.blog_id
     const payload = await request.validateUsing(createPostValidator, {
       meta: {
@@ -69,12 +66,12 @@ export default class PostsController {
   /**
    * Edit individual record
    */
-  async edit({ params }: HttpContext) {}
+  async edit({}: HttpContext) {}
 
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request, response, inertia }: HttpContext) {
+  async update({ params, request, response }: HttpContext) {
     const payload = await request.validateUsing(updatePostValidator, {
       meta: {
         postId: params.id,
@@ -98,7 +95,7 @@ export default class PostsController {
   // /**
   //  * Image upload
   //  */
-  async imageUpload({ params, response, request }: HttpContext) {
+  async imageUpload({ response, request }: HttpContext) {
     const image = request.file('image', {
       size: '5mb',
       extnames: ['jpg', 'jpeg', 'png', 'gif'],

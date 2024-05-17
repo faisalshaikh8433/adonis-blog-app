@@ -8,7 +8,7 @@ export const createBlogValidator = vine.compile(
     name: vine
       .string()
       .trim()
-      .unique(async (db, value, field) => {
+      .unique(async (db, value) => {
         const blog = await db.from('blogs').where('name', value).first()
         return !blog
       }),

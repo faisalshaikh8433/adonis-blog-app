@@ -36,12 +36,12 @@ export default class BlogsController {
   /**
    * Show individual record
    */
-  async show({ params }: HttpContext) {}
+  async show({}: HttpContext) {}
 
   /**
    * Edit individual record
    */
-  async edit({ params }: HttpContext) {}
+  async edit({}: HttpContext) {}
 
   /**
    * Handle form submission for the edit action
